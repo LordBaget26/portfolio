@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baget26 | Minecraft Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+        
+        * {
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .main-card {
+            background-color: #050505;
+            border: 1px solid #1f1f1f;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.95);
+        }
+
+        .sub-card {
+            background-color: #0a0a0a;
+            border: 1px solid #181818;
+        }
+
+        .pixelated {
+            image-rendering: pixelated;
+        }
+
+        #img-modal.active {
+            display: flex;
+        }
+
+        video::-webkit-media-controls-panel {
+            background-image: linear-gradient(transparent, rgba(0,0,0,0.85));
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-3 sm:p-6 lg:p-8 antialiased selection:bg-white selection:text-black min-h-screen">
+
+    <!-- Horizontal Landscape Card -->
+    <div class="main-card w-full max-w-[1040px] rounded-3xl p-5 sm:p-7 grid grid-cols-1 lg:grid-cols-12 gap-6 relative">
+        
+        <!-- LEFT COLUMN: Profile, Bio, Stack & Contacts (5 cols) -->
+        <div class="lg:col-span-5 flex flex-col justify-between space-y-4">
+            
+            <div class="space-y-4">
+                <!-- Header: Avatar, Name, Status, Segmented Lang Switcher -->
+                <div class="flex items-center justify-between pb-3 border-b border-[#181818]">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-xl overflow-hidden border border-[#262626] bg-[#0c0c0c] flex-shrink-0">
+                            <img src="avatar.png" alt="Baget26" class="w-full h-full object-cover pixelated">
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h1 class="text-xl font-bold text-white tracking-tight">Baget26</h1>
+                                <span class="w-2 h-2 rounded-full bg-white animate-pulse" title="Available for orders"></span>
+                            </div>
+                            <p class="text-neutral-400 text-xs font-mono" data-i18n="tagline">Minecraft Dev, 3D Modeler, Coder</p>
+                        </div>
+                    </div>
+
+                    <!-- Clean Segmented Language Switcher [EN | RU] -->
+                    <button id="lang-toggle" onclick="toggleLanguage()" class="flex items-center gap-1 p-1 rounded-xl bg-[#111111] hover:bg-[#161616] border border-[#262626] text-[11px] font-mono transition-all group cursor-pointer" title="Switch Language / Сменить язык">
+                        <i data-lucide="languages" class="w-3.5 h-3.5 text-neutral-400 ml-1.5 mr-0.5"></i>
+                        <span id="lang-pill-en" class="px-2 py-0.5 rounded-lg bg-white text-black font-bold transition-all">EN</span>
+                        <span id="lang-pill-ru" class="px-2 py-0.5 rounded-lg text-neutral-400 hover:text-white transition-all">RU</span>
+                    </button>
+                </div>
+
+                <!-- Bio Box -->
+                <div class="p-4 rounded-2xl bg-[#090909] border border-[#181818]">
+                    <p class="text-neutral-200 text-xs sm:text-[13px] leading-relaxed font-normal" data-i18n="bio">
+                        Hey everyone, I'm Baget26. I deliver end-to-end solutions for Minecraft networks. Having owned and managed my own servers, I know the backend, player retention, exploits, and server crashes from hands-on experience, not just theory. I develop optimized plugins & mods, built a custom AI Anti-Cheat that detects 99% of modern killauras, craft high-quality 3D models in Blockbench, and design custom server resource packs. Need help? Let's talk.
+                    </p>
+                </div>
+
+                <!-- Tech Stack Tags -->
+                <div class="space-y-1.5">
+                    <span class="text-[10px] font-mono text-neutral-500 uppercase tracking-wider" data-i18n="core_stack">Core Specializations</span>
+                    <div class="flex flex-wrap gap-1.5 font-mono text-[11px]">
+                        <span class="px-2.5 py-1 rounded-md bg-[#0a0a0a] border border-[#1c1c1c] text-neutral-300">Spigot & Paper Plugins</span>
+                        <span class="px-2.5 py-1 rounded-md bg-[#0a0a0a] border border-[#1c1c1c] text-neutral-300">Fabric & NeoForge Mods</span>
+                        <span class="px-2.5 py-1 rounded-md bg-[#0a0a0a] border border-[#1c1c1c] text-neutral-300">Blockbench 3D</span>
+                        <span class="px-2.5 py-1 rounded-md bg-[#0a0a0a] border border-[#1c1c1c] text-neutral-300">Server Resource Packs</span>
+                        <span class="px-2.5 py-1 rounded-md bg-[#0a0a0a] border border-[#1c1c1c] text-neutral-300">Anti-Exploit / Crash Fix</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contacts Bar (Baget26 Discord + @bgt_26 Telegram) -->
+            <div class="pt-3 border-t border-[#181818] flex items-center gap-2">
+                <button onclick="copyDiscord()" class="flex-1 py-2.5 rounded-xl bg-white hover:bg-neutral-200 text-black font-bold text-xs font-mono transition-all flex items-center justify-center gap-2 shadow-sm">
+                    <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+                    <span id="discord-btn-text" data-i18n="copy_discord">Copy Discord</span>
+                </button>
+                <a href="https://t.me/bgt_26" target="_blank" class="px-5 py-2.5 rounded-xl bg-[#111111] hover:bg-[#1a1a1a] border border-[#222222] text-xs font-mono text-white transition-all flex items-center gap-2" title="Telegram: @bgt_26">
+                    <i data-lucide="send" class="w-3.5 h-3.5"></i>
+                    <span>@bgt_26</span>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN: Tight Media Section -->
+        <div class="lg:col-span-7 flex flex-col justify-start gap-3">
+            
+            <div class="space-y-1.5">
+                <!-- Clean "My Projects:" Label -->
+                <span class="text-[10px] font-mono text-neutral-500 uppercase tracking-wider block" data-i18n="my_projects">My Projects:</span>
+
+                <!-- Video Player -->
+                <div class="rounded-2xl overflow-hidden border border-[#222222] bg-black aspect-video w-full flex items-center justify-center">
+                    <video 
+                        controls 
+                        playsinline 
+                        preload="metadata" 
+                        class="w-full h-full object-contain bg-black outline-none"
+                        src="anticheat_demo.mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+
+            <!-- Proof Screenshots Row -->
+            <div class="grid grid-cols-3 gap-2">
+                <!-- Proof 1: Blockbench 3D -->
+                <div class="group relative rounded-xl overflow-hidden border border-[#1f1f1f] bg-black cursor-pointer h-24 sm:h-28" onclick="openModal('work_key_model.jpg')">
+                    <img src="work_key_model.jpg" alt="Blockbench" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200">
+                </div>
+
+                <!-- Proof 2: In-Game Model View -->
+                <div class="group relative rounded-xl overflow-hidden border border-[#1f1f1f] bg-black cursor-pointer h-24 sm:h-28" onclick="openModal('work_key_ingame.jpg')">
+                    <img src="work_key_ingame.jpg" alt="In-Game" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200">
+                </div>
+
+                <!-- Proof 3: Server Proof LissWorld -->
+                <div class="group relative rounded-xl overflow-hidden border border-[#1f1f1f] bg-black cursor-pointer h-24 sm:h-28" onclick="openModal('work_server.jpg')">
+                    <img src="work_server.jpg" alt="Server Proof" class="w-full h-full object-cover object-top group-hover:scale-102 transition-transform duration-200">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Image Lightbox Modal (Clean View - No Text) -->
+    <div id="img-modal" class="fixed inset-0 bg-black/95 z-50 hidden items-center justify-center p-4 backdrop-blur-md" onclick="closeModal()">
+        <div class="relative max-w-4xl max-h-[90vh] flex flex-col items-center">
+            <button onclick="closeModal()" class="absolute -top-9 right-0 text-white hover:text-neutral-400 font-mono text-xs flex items-center gap-1">
+                <i data-lucide="x" class="w-4 h-4"></i> Close
+            </button>
+            <img id="modal-img" src="" alt="Preview" class="max-w-full max-h-[85vh] rounded-xl border border-[#2a2a2a] shadow-2xl object-contain">
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        lucide.createIcons();
+
+        const translations = {
+            en: {
+                tagline: "Minecraft Dev, 3D Modeler, Coder",
+                core_stack: "Core Specializations",
+                my_projects: "My Projects:",
+                copy_discord: "Copy Discord",
+                copied: "Copied: Baget26",
+                bio: "Hey everyone, I'm Baget26. I deliver end-to-end solutions for Minecraft networks. Having owned and managed my own servers, I know the backend, player retention, exploits, and server crashes from hands-on experience, not just theory. I develop optimized plugins & mods, built a custom AI Anti-Cheat that detects 99% of modern killauras, craft high-quality 3D models in Blockbench, and design custom server resource packs. Need help? Let's talk."
+            },
+            ru: {
+                tagline: "Minecraft Dev, 3D Модельер, Кодер",
+                core_stack: "Ключевая специализация",
+                my_projects: "Мои проекты:",
+                copy_discord: "Скопировать Discord",
+                copied: "Скопировано: Baget26",
+                bio: "Всем привет, я Baget26. Делаю полный спектр решений для Minecraft Проектов под ключ. Я сам держал и администрировал свои сервера, поэтому знаю серверную часть, удержание игроков на сервере, эксплоиты и краши, а не только по теории. Пишу оптимизированные плагины и моды, есть свой AI АнтиЧит, который детектит 99% современных киллаур, я также создаю качественные 3D-модели в Blockbench и рисую серверные ресурспаки. Нужно помочь? - Обращайтесь"
+            }
+        };
+
+        let currentLang = 'en';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'ru' : 'en';
+            
+            const pillEn = document.getElementById('lang-pill-en');
+            const pillRu = document.getElementById('lang-pill-ru');
+            
+            if (currentLang === 'ru') {
+                pillRu.className = "px-2 py-0.5 rounded-lg bg-white text-black font-bold transition-all";
+                pillEn.className = "px-2 py-0.5 rounded-lg text-neutral-400 hover:text-white transition-all";
+            } else {
+                pillEn.className = "px-2 py-0.5 rounded-lg bg-white text-black font-bold transition-all";
+                pillRu.className = "px-2 py-0.5 rounded-lg text-neutral-400 hover:text-white transition-all";
+            }
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    el.innerText = translations[currentLang][key];
+                }
+            });
+        }
+
+        function copyDiscord() {
+            navigator.clipboard.writeText("Baget26").then(() => {
+                const btnText = document.getElementById('discord-btn-text');
+                const orig = btnText.innerText;
+                btnText.innerText = translations[currentLang].copied;
+                setTimeout(() => {
+                    btnText.innerText = orig;
+                }, 2000);
+            });
+        }
+
+        function openModal(imgSrc) {
+            const modal = document.getElementById('img-modal');
+            const modalImg = document.getElementById('modal-img');
+            modalImg.src = imgSrc;
+            modal.classList.remove('hidden');
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('img-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('active');
+        }
+    </script>
+</body>
+</html>
